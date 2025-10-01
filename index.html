@@ -40,61 +40,93 @@ body{background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:20px;
 
 <script>
 const CHANNELS = [
-  {
-    name:"GolPerú",
-    desc:"Partidos en vivo",
-    embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "TNT Sports",
-    desc: "Partidos en vivo y eventos deportivos",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN PREMIUM Argentina",
-    desc: "Deportes en vivo y eventos exclusivos",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed/espnpremiumargentina.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "TyC Sports",
-    desc: "Fútbol argentino y más",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN Argentina",
-    desc: "Deportes en vivo",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed/espnar.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN 2",
-    desc: "Deportes internacionales",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN 3",
-    desc: "Deportes y eventos especiales",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn3.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN 4",
-    desc: "Cobertura deportiva completa",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn4.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "Dsport 2",
-    desc: "Eventos deportivos en vivo",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsports2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "Dsport Plus",
-    desc: "Deportes y transmisiones exclusivas",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsportsplus.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  }
+  { name:"GolPerú", desc:"Partidos en vivo", embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "TNT Sports", desc: "Partidos en vivo y eventos deportivos", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "ESPN PREMIUM Argentina", desc: "Deportes en vivo y eventos exclusivos", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed/espnpremiumargentina.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "TyC Sports", desc: "Fútbol argentino y más", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "ESPN Argentina", desc: "Deportes en vivo", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed/espnar.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "ESPN 2", desc: "Deportes internacionales", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "ESPN 3", desc: "Deportes y eventos especiales", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn3.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "ESPN 4", desc: "Cobertura deportiva completa", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn4.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "Dsport 2", desc: "Eventos deportivos en vivo", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsports2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` },
+  { name: "Dsport Plus", desc: "Deportes y transmisiones exclusivas", embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsportsplus.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>` }
 ];
 
 const grid = document.getElementById('sportsGrid');
 const modal = document.getElementById('playerModal');
 const playerArea = document.getElementById('playerArea');
+const modalTitle = document.getElementById('modalTitle');
+
+CHANNELS.forEach(c=>{
+  const card = document.createElement('div');
+  card.className = "card";
+  card.innerHTML = `
+    <div class="thumb">${c.name}</div>
+    <div class="title">${c.name}</div>
+    <div class="desc">${c.desc}</div>
+    <button class="play-btn">Ver</button>
+  `;
+  card.onclick = ()=>openChannel(c);
+  grid.appendChild(card);
+});
+
+function openChannel(c){
+  modal.style.display = "flex";
+  modalTitle.textContent = c.name;
+  playerArea.innerHTML = `
+    <div class="notice">⚠️ Al hacer click en Play puede abrirse una pestaña de publicidad. Cerrala y volvé al canal. ¡Gracias por apoyar la página!</div>
+    ${c.embed}
+  `;
+}
+function closeModal(){
+  modal.style.display = "none";
+  playerArea.innerHTML = "";
+}
+</script>
+
+<!-- Bloque combinado de donación -->
+<section style="text-align:center; margin: 50px 0; font-family: Arial, sans-serif;">
+  <h2 style="font-size: 24px; margin-bottom: 10px;">💙 Apoyá el proyecto</h2>
+  <p style="font-size: 16px; color: #444; margin-bottom: 30px;">
+    Si te gusta lo que hago y querés ayudarme a seguir mejorando, podés hacerlo de estas dos formas:
+  </p>
+
+  <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap;">
+    
+    <!-- PayPal -->
+    <div style="text-align:center;">
+      <h3 style="font-size:20px; margin-bottom:10px;">💳 PayPal</h3>
+      <a href="https://paypal.me/tvelathd" target="_blank">
+        <button style="
+          padding: 14px 28px; 
+          background-color: #0070ba; 
+          color: white; 
+          font-size: 16px; 
+          font-weight: bold; 
+          border: none; 
+          border-radius: 8px; 
+          cursor: pointer;
+          transition: background 0.3s;">
+          Donar con PayPal
+        </button>
+      </a>
+    </div>
+
+    <!-- Transferencia Bancaria -->
+    <div style="text-align:center;">
+      <h3 style="font-size:20px; margin-bottom:10px;">🏦 Transferencia Bancaria</h3>
+      <div style="display:flex; justify-content:center; align-items:center; gap:10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Bank_icon.svg/1200px-Bank_icon.svg.png" 
+             alt="Banco" style="width:40px; height:40px;">
+        <span style="font-size:16px; font-weight:bold; color:#111827;">tvelathd25</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>const playerArea = document.getElementById('playerArea');
 const modalTitle = document.getElementById('modalTitle');
 
 CHANNELS.forEach(c=>{
