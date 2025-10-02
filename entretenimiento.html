@@ -6,119 +6,27 @@
   <title>Entretenimiento - TV Latino HD</title>
   <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
   <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
-    body {
-      background:#0b0f1c;
-      color:#fff;
-      font-family:sans-serif;
-      margin:0;
-      padding:0;
-    }
-    header {
-      background:#111827;
-      padding:10px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    header img {
-      height:50px;
-    }
-    nav a {
-      color:#0ea5ff;
-      margin:0 10px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-    nav a:hover {
-      text-decoration:underline;
-    }
-    h1 {
-      text-align:center;
-      margin:20px 0;
-    }
-    #entertainmentGrid {
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:16px;
-      padding:20px;
-    }
-    .card {
-      background:#111827;
-      padding:12px;
-      border-radius:12px;
-      cursor:pointer;
-      transition:.2s;
-      text-align:center;
-    }
-    .card:hover {
-      transform:scale(1.03);
-    }
-    .thumb img {
-      max-width:100%;
-      max-height:120px;
-      border-radius:8px;
-      margin-bottom:8px;
-    }
-    .title {
-      font-weight:700;
-      margin-bottom:4px;
-    }
-    .desc {
-      color:#9aa4ad;
-      font-size:14px;
-    }
-    .play-btn {
-      margin-top:8px;
-      padding:6px 12px;
-      border-radius:8px;
-      background:linear-gradient(90deg,#0ea5ff,#ff4c4c);
-      border:none;
-      color:#000;
-      font-weight:bold;
-      cursor:pointer;
-    }
-    #playerModal {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.8);
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-    }
-    .modal-content {
-      background:#111827;
-      padding:12px;
-      border-radius:12px;
-      max-width:900px;
-      width:95%;
-      box-shadow:0 0 20px #000;
-    }
-    .modal-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:8px;
-    }
-    .modal-header h3 {
-      margin:0;
-    }
-    .modal-body {
-      width:100%;
-      height:480px;
-      background:#000;
-      position:relative;
-    }
-    .close-btn {
-      background:red;
-      border:none;
-      padding:6px 12px;
-      border-radius:8px;
-      color:#fff;
-      font-weight:bold;
-      cursor:pointer;
-    }
+    body {background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:0;}
+    header {background:#111827;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+    header img {height:50px;}
+    nav a {color:#0ea5ff;margin:0 10px;text-decoration:none;font-weight:bold;}
+    nav a:hover {text-decoration:underline;}
+    h1 {text-align:center;margin:20px 0;}
+    #entertainmentGrid {display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px;}
+    .card {background:#111827;padding:12px;border-radius:12px;cursor:pointer;transition:.2s;text-align:center;}
+    .card:hover {transform:scale(1.03);}
+    .thumb img {max-width:100%;max-height:120px;border-radius:8px;margin-bottom:8px;}
+    .title {font-weight:700;margin-bottom:4px;}
+    .desc {color:#9aa4ad;font-size:14px;}
+    .play-btn {margin-top:8px;padding:6px 12px;border-radius:8px;background:linear-gradient(90deg,#0ea5ff,#ff4c4c);border:none;color:#000;font-weight:bold;cursor:pointer;}
+    #playerModal {display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:9999;}
+    .modal-content {background:#111827;padding:12px;border-radius:12px;max-width:900px;width:95%;box-shadow:0 0 20px #000;}
+    .modal-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+    .modal-header h3 {margin:0;}
+    .modal-body {width:100%;height:480px;background:#000;position:relative;}
+    .close-btn {background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
   </style>
 </head>
 <body>
@@ -155,6 +63,12 @@
         desc: "Canal de entretenimiento en vivo",
         thumb: "https://upload.wikimedia.org/wikipedia/commons/6/69/Canal_13_logo_2018.png",
         stream: "https://stream.arcast.com.ar/canal3/canal3/playlist.m3u8"
+      },
+      {
+        name: "X Level Media",
+        desc: "Canal de música y entretenimiento",
+        thumb: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Music_film_icon.png",
+        stream: "https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8"
       }
     ];
 
@@ -172,7 +86,10 @@
         <div class="desc">${c.desc}</div>
         <button class="play-btn">Ver</button>
       `;
-      card.onclick = () => openChannel(c);
+      card.querySelector(".play-btn").onclick = (e) => {
+        e.stopPropagation();
+        openChannel(c);
+      };
       grid.appendChild(card);
     });
 
@@ -180,11 +97,16 @@
       modal.style.display = "flex";
       modalTitle.textContent = c.name;
       playerArea.innerHTML = `
-        <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay preload="auto" width="100%" height="100%">
-          <source src="${c.stream}" type="application/x-mpegURL">
-        </video>
+        <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay preload="auto" width="100%" height="100%"></video>
       `;
-      videojs('videoPlayer');
+      const video = document.getElementById('videoPlayer');
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(c.stream);
+        hls.attachMedia(video);
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = c.stream;
+      }
     }
 
     function closeModal(){
