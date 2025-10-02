@@ -4,99 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TV Latino HD</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0d1117;
+      background-color: #0d1117;
       color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
     header {
       background: #000;
-      padding: 12px 20px;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     header img {
-      height: 60px;
+      height: 60px; /* logo más grande */
     }
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 15px;
       font-weight: bold;
     }
-    .container {
+    nav a:hover {
+      color: #1f6feb;
+    }
+    main {
       padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+      text-align: center;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
     }
     .card {
       background: #161b22;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
+      text-align: center;
       transition: transform 0.2s;
     }
     .card:hover {
-      transform: scale(1.02);
+      transform: scale(1.05);
     }
     .card img {
       width: 100%;
-      height: 150px;
+      height: 120px;
       object-fit: contain;
       background: #000;
     }
-    .card .info {
-      padding: 12px;
-    }
     .card h3 {
-      margin: 5px 0;
+      margin: 10px 0 5px;
     }
     .card p {
-      margin: 0;
+      margin: 0 0 10px;
       font-size: 14px;
       color: #aaa;
     }
     .btn {
-      margin-top: 10px;
       display: inline-block;
-      padding: 8px 15px;
-      background: linear-gradient(45deg, #ff004c, #ff7b00);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background: linear-gradient(45deg, #ff0000, #ff7300);
+      color: white;
       font-weight: bold;
-      text-align: center;
+      text-decoration: none;
     }
     footer {
-      background: #000;
+      background: #111;
       text-align: center;
       padding: 20px;
-      margin-top: 40px;
+      margin-top: 30px;
       font-size: 14px;
-      color: #aaa;
-    }
-    .support {
-      margin-top: 20px;
-    }
-    .bank {
-      font-weight: bold;
-      color: #0ff;
+      color: #bbb;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://i.imgur.com/lL3cO6R.png" alt="Logo TV Latino HD">
+    <img src="https://i.imgur.com/2DhF2Jo.png" alt="TV Latino HD Logo"> <!-- tu logo -->
     <nav>
       <a href="index.html">Inicio</a>
       <a href="terror.html">Terror</a>
@@ -106,50 +98,99 @@
     </nav>
   </header>
 
-  <div class="container">
-    <h2>Todo el Deporte Online — TV Latino HD</h2>
-    <p>Mirá deportes en vivo: fútbol, básquet, tenis y más.</p>
+  <main>
+    <h1>⚽ Todo el Deporte Online — TV Latino HD</h1>
+    <p>Mirá deportes en vivo: fútbol, básquet, tenis y más. <br> Hacé click en un canal para abrir el reproductor.</p>
 
     <div class="grid">
-      <!-- Ejemplo de canal -->
+      <!-- GolPerú -->
       <div class="card">
         <img src="https://static.wikia.nocookie.net/logopedia/images/c/cb/Gol_Per%C3%BA_2016.svg" alt="GolPerú">
-        <div class="info">
-          <h3>GolPerú</h3>
-          <p>Partidos en vivo</p>
-          <a class="btn" href="player.html?canal=golperu">Ver</a>
-        </div>
+        <h3>GolPerú</h3>
+        <p>Partidos en vivo</p>
+        <a class="btn" href="#">Ver</a>
       </div>
 
+      <!-- TNT Sports -->
       <div class="card">
         <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/TNT_Sports_logo_2021.png" alt="TNT Sports">
-        <div class="info">
-          <h3>TNT Sports</h3>
-          <p>Partidos y eventos</p>
-          <a class="btn" href="player.html?canal=tntsports">Ver</a>
-        </div>
+        <h3>TNT Sports</h3>
+        <p>Partidos y eventos</p>
+        <a class="btn" href="#">Ver</a>
       </div>
 
-      <!-- acá van los demás canales con sus imágenes -->
-    </div>
+      <!-- ESPN Premium -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/ESPN_Premium_logo.svg" alt="ESPN Premium">
+        <h3>ESPN PREMIUM Argentina</h3>
+        <p>Eventos exclusivos</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
 
-    <!-- DONACIONES -->
-    <div class="support">
-      <h3>💙 Apoyá el proyecto</h3>
-      <p>Si te gusta lo que hago, podés invitarme un cafecito o transferencia.</p>
-      <a href="https://paypal.me/tvelathd" target="_blank" rel="noopener">
-        <button style="background:#0070ba;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;">
-          💳 Donar con PayPal
-        </button>
-      </a>
-      <p style="margin-top:10px;color:#ccc;">
-        Alias para transferencias bancarias: <span class="bank">TVELATHD25</span>
-      </p>
+      <!-- TyC Sports -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/TyC_Sports_logo.svg" alt="TyC Sports">
+        <h3>TyC Sports</h3>
+        <p>Deportes argentinos</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- ESPN -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/ESPN_logos.png" alt="ESPN">
+        <h3>ESPN</h3>
+        <p>Deportes internacionales</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- ESPN 2 -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/ESPN2_logo.svg" alt="ESPN 2">
+        <h3>ESPN 2</h3>
+        <p>Deportes en vivo</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- ESPN 3 -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/ESPN3_Logo.png" alt="ESPN 3">
+        <h3>ESPN 3</h3>
+        <p>Eventos especiales</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- ESPN 4 -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/ESPN_4_logo.svg" alt="ESPN 4">
+        <h3>ESPN 4</h3>
+        <p>Cobertura completa</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- DSports 2 -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/DSports2.png" alt="DSports 2">
+        <h3>DSports 2</h3>
+        <p>Eventos en vivo</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
+
+      <!-- DSports -->
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/DSports.png" alt="DSports">
+        <h3>DSports</h3>
+        <p>Transmisiones exclusivas</p>
+        <a class="btn" href="#">Ver</a>
+      </div>
     </div>
-  </div>
+  </main>
 
   <footer>
-    © 2025 TV Latino HD — Todos los derechos reservados.
+    <p>💳 Alias para transferencias: <b>TVLATINO.ALIAS</b></p>
+    <p>☕ Si querés apoyar el proyecto:  
+      <a href="https://www.paypal.com/donate" class="btn">Donar por PayPal</a>
+    </p>
+    <p>© 2025 TV Latino HD — Todos los derechos reservados.</p>
   </footer>
 </body>
 </html>
