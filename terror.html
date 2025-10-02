@@ -11,25 +11,82 @@
   <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
 
   <style>
-    body { background:#0b0f1c; color:#fff; font-family: sans-serif; text-align:center; margin:0; padding:20px; }
-    h1 { margin-bottom:20px; }
-    .player-container { max-width:800px; margin:0 auto; }
+    body { background:#0b0f1c; color:#fff; font-family: sans-serif; margin:0; padding:20px; }
+    h1 { text-align:center; margin-bottom:20px; }
+    #grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .card { background:#111827; padding:12px; border-radius:12px; cursor:pointer; transition:.2s; }
+    .card:hover { transform:scale(1.03); }
+    .title { font-weight:700; margin-bottom:6px; }
+    .desc { font-size:14px; color:#9aa4ad; }
+    #playerModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); align-items:center; justify-content:center; z-index:9999; }
+    .modal-content { background:#111827; padding:12px; border-radius:12px; max-width:900px; width:95%; }
+    .close-btn { background:red; border:none; padding:6px 12px; border-radius:8px; color:#fff; font-weight:bold; cursor:pointer; }
   </style>
 </head>
 <body>
 
-  <h1>🎃 Terror - TV Latino HD</h1>
-  <p>Canales de terror y películas gratis en vivo.</p>
+<h1>🎃 Canales Terror</h1>
+<div id="grid"></div>
 
-  <div class="player-container">
-    <video id="pluto-horror" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="480">
-      <source src="https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62fa81ccd1a7e90007c1ada0/master.m3u8" type="application/x-mpegURL">
-    </video>
+<!-- Modal -->
+<div id="playerModal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <h3 id="modalTitle">Reproductor</h3>
+      <button class="close-btn" onclick="closeModal()">Cerrar</button>
+    </div>
+    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="480"></video>
   </div>
+</div>
 
-  <script>
-    var player = videojs('pluto-horror');
-  </script>
+<script>
+const CHANNELS = [
+  {
+    name:"VerTV (VTV)",
+    desc:"Canal argentino - [720p]",
+    src:"https://5f700d5b2c46f.streamlock.net/vertv/vertv/playlist.m3u8"
+  },
+  {
+    name:"X Level Media",
+    desc:"Transmisión en vivo [1080p]",
+    src:"https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8"
+  }
+];
+
+const grid = document.getElementById('grid');
+const modal = document.getElementById('playerModal');
+const modalTitle = document.getElementById('modalTitle');
+let player;
+
+CHANNELS.forEach(c=>{
+  const card = document.createElement('div');
+  card.className = "card";
+  card.innerHTML = `
+    <div class="title">${c.name}</div>
+    <div class="desc">${c.desc}</div>
+  `;
+  card.onclick = ()=>openChannel(c);
+  grid.appendChild(card);
+});
+
+function openChannel(c){
+  modal.style.display = "flex";
+  modalTitle.textContent = c.name;
+
+  // destruir player viejo si existe
+  if (player) { player.dispose(); }
+
+  // crear nuevo player
+  const videoEl = document.getElementById('my-video');
+  videoEl.innerHTML = `<source src="${c.src}" type="application/x-mpegURL">`;
+  player = videojs(videoEl);
+}
+
+function closeModal(){
+  modal.style.display = "none";
+  if (player) { player.dispose(); }
+}
+</script>
 
 </body>
 </html>
