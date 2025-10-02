@@ -25,8 +25,53 @@ body{background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:20px;
 .close-btn{background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
 .notice{background:linear-gradient(90deg,#ff4c4c,#0ea5ff);color:#fff;font-size:14px;padding:6px;text-align:center;border-radius:8px;margin-bottom:6px;font-weight:bold;}
 </style>
+  /* Estilos del header y navegación */
+header nav a {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding-bottom: 4px;
+}
+
+header nav a:hover {
+  color: #0ea5ff;
+  text-shadow: 0px 0px 8px #0ea5ff;
+}
+
+header nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: 0;
+  background-color: #0ea5ff;
+  transition: width 0.3s ease;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
 </head>
 <body>
+  <!-- HEADER -->
+<header style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#111827;">
+  <!-- Logo -->
+  <div>
+    <img src="logotv.png" alt="TV Latino HD" width="160">
+  </div>
+
+  <!-- Navegación -->
+  <nav style="display:flex; gap:20px;">
+    <a href="index.html">Inicio</a>
+    <a href="Deportes.html">Deportes</a>
+    <a href="Aviso.html">Aviso Legal</a>
+    <a href="Dmca.html">DMCA</a>
+    <a href="Copyright.html">Copyright</a>
+  </nav>
+</header>
   <div style="text-align:center; margin: 20px 0;">
   <img src="logotv.png" alt="TV Latino HD" width="200">
   </div>
