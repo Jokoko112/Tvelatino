@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terror Online - TV Latino HD</title>
+  <style>
+    body{background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:20px;}
+    #terrorGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .card{background:#111827;padding:12px;border-radius:12px;cursor:pointer;transition:.2s;}
+    .card:hover{transform:scale(1.03);}
+    .thumb{height:120px;background:#222;border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;}
+    .title{font-weight:700;margin-bottom:4px;}
+    .desc{color:#9aa4ad;font-size:14px;}
+    .play-btn{margin-top:8px;padding:6px 12px;border-radius:8px;background:linear-gradient(90deg,#0ea5ff,#ff4c4c);border:none;color:#000;font-weight:bold;cursor:pointer;}
+    #playerModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:9999;}
+    .modal-content{background:#111827;padding:12px;border-radius:12px;max-width:900px;width:95%;box-shadow:0 0 20px #000;}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+    .modal-header h3{margin:0;}
+    .modal-body{width:100%;height:480px;background:#000;position:relative;}
+    .close-btn{background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">Canales de Terror 🎃</h1>
+  <p style="text-align:center; max-width:700px; margin:0 auto 20px; color:#ccc;">
+    Bienvenido a la sección de Terror. Aquí podés ver canales y transmisiones dedicadas al cine y contenido de terror.
+  </p>
+
+  <div id="terrorGrid"></div>
+
+  <!-- Modal -->
+  <div id="playerModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Reproductor</h3>
+        <button class="close-btn" onclick="closeModal()">Cerrar</button>
+      </div>
+      <div class="modal-body" id="playerArea"></div>
+    </div>
+  </div>
+
+<script>
+const CHANNELS = [
+  {
+    name:"Xtrema Terror",
+    desc:"Cine de terror en vivo",
+    embed:`<iframe src="https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8"
+      width="100%" height="100%" frameborder="0" allowfullscreen="true" allow="autoplay"></iframe>`
+  }
+];
+
+const grid = document.getElementById('terrorGrid');
+const modal = document.getElementById('playerModal');
+const playerArea = document.getElementById('playerArea');
+const modalTitle = document.getElementById('modalTitle');
+
+CHANNELS.forEach(c=>{
+  const card = document.createElement('div');
+  card.className = "card";
+  card.innerHTML = `
+    <div class="thumb">${c.name}</div>
+    <div class="title">${c.name}</div>
+    <div class="desc">${c.desc}</div>
+    <button class="play-btn">Ver</button>
+  `;
+  card.onclick = ()=>openChannel(c);
+  grid.appendChild(card);
+});
+
+function openChannel(c){
+  modal.style.display = "flex";
+  modalTitle.textContent = c.name;
+  playerArea.innerHTML = c.embed;
+}
+function closeModal(){
+  modal.style.display = "none";
+  playerArea.innerHTML = "";
+}
+</script>
+
+  <footer style="text-align:center; margin-top:40px; font-size:14px; color:#aaa;">
+    <p>
+      <a href="index.html" style="color:#0ea5ff;">Deportes</a> | 
+      <a href="terror.html" style="color:#0ea5ff;">Terror</a> | 
+      <a href="Aviso.html" style="color:#0ea5ff;">Aviso Legal</a>
+    </p>
+    <p>© 2025 TV Latino HD - Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
