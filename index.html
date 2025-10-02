@@ -70,8 +70,8 @@
       flex-direction:column;
     }
     .card:hover{ transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.6); }
-    .thumb{ height:110px; background:#000; display:flex; align-items:center; justify-content:center; }
-    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .thumb{ height:110px; background:#000; display:flex; align-items:center; justify-content:center; padding:8px; }
+    .thumb img{ width:100%; height:100%; object-fit:contain; display:block; }
     .info{ padding:10px; flex:1; }
     .title{ font-weight:700; font-size:15px; margin-bottom:6px; color:#fff; }
     .desc{ font-size:13px; color:var(--muted); margin-bottom:8px; }
@@ -86,7 +86,7 @@
       cursor:pointer;
     }
 
-    /* DONATIONS BOX (appears below grid) */
+    /* DONATIONS BOX */
     .support {
       margin:30px auto 10px;
       max-width:900px;
@@ -136,13 +136,10 @@
     }
     .modal-head h3{ margin:0; font-size:18px; }
     .modal-close{ background:var(--accent2); color:#000; border:0; padding:8px 12px; border-radius:8px; font-weight:700; cursor:pointer; }
-
-    /* Responsive 16:9 container */
     .modal-body{ padding:12px; display:flex; justify-content:center; align-items:center; }
     .embed-wrap{ position:relative; width:100%; padding-bottom:56.25%; height:0; background:#000; }
-    .embed-wrap iframe, .embed-wrap video { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .embed-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
-    /* small screens */
     @media (max-width:420px){
       .thumb{ height:90px; }
       .logo img{ width:140px; }
@@ -157,7 +154,6 @@
     <div class="logo">
       <a href="index.html"><img src="logotv.png" alt="TV Latino HD"></a>
     </div>
-
     <nav>
       <a href="index.html">Inicio</a>
       <a href="terror.html">Terror</a>
@@ -175,18 +171,15 @@
     <!-- GRID -->
     <div id="sportsGrid"></div>
 
-    <!-- DONACIONES / APOYA -->
+    <!-- DONACIONES -->
     <div class="support">
       <h3 style="margin-bottom:8px;">💙 Apoyá el proyecto</h3>
       <p style="margin:6px 0 12px;">Si te gusta lo que hago, podés invitarme un cafecito o transferencia.</p>
-
-      <!-- PayPal button (paypal.me) -->
       <a href="https://paypal.me/tvelathd" target="_blank" rel="noopener" style="text-decoration:none;">
         <button style="background:#0070ba;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;">
           💳 Donar con PayPal
         </button>
       </a>
-
       <p style="margin-top:10px;color:var(--muted);">
         Alias para transferencias bancarias: <span class="bank">TVELATHD25</span>
       </p>
@@ -194,16 +187,14 @@
   </div>
 
   <!-- MODAL PLAYER -->
-  <div id="playerModal" role="dialog" aria-hidden="true">
-    <div class="modal-wrap" role="document">
+  <div id="playerModal">
+    <div class="modal-wrap">
       <div class="modal-head">
         <h3 id="modalTitle">Reproductor</h3>
         <button class="modal-close" id="closeBtn">Cerrar</button>
       </div>
       <div class="modal-body">
-        <div class="embed-wrap" id="playerArea">
-          <!-- Aquí se inyecta el iframe o wrapper 16:9 -->
-        </div>
+        <div class="embed-wrap" id="playerArea"></div>
       </div>
     </div>
   </div>
@@ -218,84 +209,80 @@
     <p style="margin-top:8px;">© 2025 TV Latino HD - Todos los derechos reservados.</p>
   </footer>
 
-  <!-- SCRIPTS -->
   <script>
-    // --- Canales (poné/quitá los que quieras) ---
     const CHANNELS = [
       {
         name:"GolPerú",
         desc:"Partidos en vivo",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://static.wikia.nocookie.net/logopedia/images/c/cb/Gol_Per%C3%BA_2016.svg/revision/latest?cb=20240224034010&path-prefix=es",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" allowfullscreen></iframe>`
       },
       {
         name:"TNT Sports",
         desc:"Partidos y eventos",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/d/d3/TNT_Sports_logo_2021.png",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" allowfullscreen></iframe>`
       },
       {
         name:"ESPN PREMIUM Argentina",
         desc:"Eventos exclusivos",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        // use embed2 version and wrapper to keep aspect ratio
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/espnpremiumargentina.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/a/a1/ESPN_Premium_logo.svg",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espnpremiumargentina.html" allowfullscreen></iframe>`
       },
       {
         name:"TyC Sports",
         desc:"Fútbol argentino",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/5/54/TyC_Sports_logo.svg",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" allowfullscreen></iframe>`
       },
       {
         name:"ESPN Argentina",
         desc:"Deportes en vivo",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/espncol.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/6/60/ESPN_logos.png",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espncol.html" allowfullscreen></iframe>`
       },
       {
         name:"ESPN 2",
         desc:"Deportes internacionales",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/espn2.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/b/bf/ESPN2_logo.svg",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn2.html" allowfullscreen></iframe>`
       },
       {
         name:"ESPN 3",
         desc:"Eventos especiales",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/espn3.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/5/51/ESPN3_Logo.png",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn3.html" allowfullscreen></iframe>`
       },
       {
         name:"ESPN 4",
         desc:"Cobertura completa",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/espn4.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/7/78/ESPN_4_logo.svg",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn4.html" allowfullscreen></iframe>`
       },
       {
         name:"Dsport 2",
         desc:"Eventos en vivo",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsports2.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/8/83/DSports2.png",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsports2.html" allowfullscreen></iframe>`
       },
       {
         name:"Dsport Plus",
         desc:"Transmisiones exclusivas",
-        thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
-        embed:`<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000;"><iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsportsplus.html" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="no" frameborder="0" allowfullscreen></iframe></div>`
+        thumb:"https://upload.wikimedia.org/wikipedia/commons/5/5a/DSports.png",
+        embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsportsplus.html" allowfullscreen></iframe>`
       }
     ];
 
-    // --- render grid ---
-    const grid = document.getElementById('sportsGrid');
-    const modal = document.getElementById('playerModal');
-    const playerArea = document.getElementById('playerArea');
-    const modalTitle = document.getElementById('modalTitle');
-    const closeBtn = document.getElementById('closeBtn');
+    const grid=document.getElementById('sportsGrid');
+    const modal=document.getElementById('playerModal');
+    const playerArea=document.getElementById('playerArea');
+    const modalTitle=document.getElementById('modalTitle');
+    const closeBtn=document.getElementById('closeBtn');
 
-    CHANNELS.forEach(c => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
+    CHANNELS.forEach(c=>{
+      const card=document.createElement('div');
+      card.className='card';
+      card.innerHTML=`
         <div class="thumb"><img src="${c.thumb}" alt="${c.name}"></div>
         <div class="info">
           <div class="title">${c.name}</div>
@@ -303,42 +290,23 @@
           <div style="margin-top:8px;"><button class="play-btn">Ver</button></div>
         </div>
       `;
-      card.querySelector('.play-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openChannel(c);
-      });
-      card.addEventListener('click', () => openChannel(c));
+      card.querySelector('.play-btn').addEventListener('click',(e)=>{e.stopPropagation();openChannel(c);});
+      card.addEventListener('click',()=>openChannel(c));
       grid.appendChild(card);
     });
 
     function openChannel(c){
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden','false');
-      modalTitle.textContent = c.name;
-      // Insert embed HTML (wrapper preserves 16:9)
-      playerArea.innerHTML = `
-        <div style="width:100%;text-align:center;margin-bottom:8px;">
-          <div style="display:inline-block;padding:6px 10px;border-radius:8px;background:linear-gradient(90deg,var(--accent2),var(--accent));color:#000;font-weight:700;">
-            ⚠️ Si abre publicidad, cerrala y volvé al canal
-          </div>
-        </div>
-        ${c.embed}
-      `;
-      document.body.classList.add('modal-open');
+      modal.style.display='flex';
+      modalTitle.textContent=c.name;
+      playerArea.innerHTML=c.embed;
     }
-
     function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden','true');
-      playerArea.innerHTML = '';
-      document.body.classList.remove('modal-open');
+      modal.style.display='none';
+      playerArea.innerHTML='';
     }
-
-    // close buttons & outside click
-    closeBtn.addEventListener ? closeBtn.addEventListener('click', closeModal) : null;
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
-
+    closeBtn.addEventListener('click',closeModal);
+    modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal();});
+    document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeModal();});
   </script>
 </body>
 </html>
