@@ -3,115 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entretenimiento - TV Latino HD</title>
+  <title>Entretenimiento</title>
+  <link rel="stylesheet" href="styles.css">
   <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
   <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
-    body {background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:0;}
-    header {background:#111827;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
-    header img {height:50px;}
-    nav a {color:#0ea5ff;margin:0 10px;text-decoration:none;font-weight:bold;}
-    nav a:hover {text-decoration:underline;}
-    h1 {text-align:center;margin:20px 0;}
-    #entertainmentGrid {display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px;}
-    .card {background:#111827;padding:12px;border-radius:12px;cursor:pointer;transition:.2s;text-align:center;}
-    .card:hover {transform:scale(1.03);}
-    .thumb img {max-width:100%;max-height:120px;border-radius:8px;margin-bottom:8px;}
-    .title {font-weight:700;margin-bottom:4px;}
-    .desc {color:#9aa4ad;font-size:14px;}
-    .play-btn {margin-top:8px;padding:6px 12px;border-radius:8px;background:linear-gradient(90deg,#0ea5ff,#ff4c4c);border:none;color:#000;font-weight:bold;cursor:pointer;}
-    #playerModal {display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:9999;}
-    .modal-content {background:#111827;padding:12px;border-radius:12px;max-width:900px;width:95%;box-shadow:0 0 20px #000;}
-    .modal-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-    .modal-header h3 {margin:0;}
-    .modal-body {width:100%;height:480px;background:#000;position:relative;}
-    .close-btn {background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
+    .canales {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .canal {
+      background: #111;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .canal button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #e50914;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .canal button:hover {
+      background: #b20710;
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      margin: 5% auto;
+      padding: 10px;
+      background: #000;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 900px;
+    }
+    .close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="logotv.png" alt="TV Latino HD">
     <nav>
       <a href="index.html">Inicio</a>
       <a href="entretenimiento.html">Entretenimiento</a>
       <a href="terror.html">Terror</a>
-      <a href="Aviso.html">Aviso Legal</a>
-      <a href="Dmca.html">DMCA</a>
-      <a href="Copyright.html">Copyright</a>
+      <a href="dmca.html">DMCA</a>
+      <a href="copyright.html">Copyright</a>
+      <a href="donaciones.html">Donaciones</a>
     </nav>
   </header>
 
-  <h1>Entretenimiento</h1>
-  <div id="entertainmentGrid"></div>
+  <main>
+    <h1 style="text-align:center; color:white;">Canales de Entretenimiento</h1>
+    <div class="canales">
+      <div class="canal">
+        <h3>Canal 13 Jujuy</h3>
+        <button onclick="abrirModal('https://genexservicios.com:19360/canal13jujuy/canal13jujuy.m3u8')">Ver</button>
+      </div>
+      <div class="canal">
+        <h3>Canal 26</h3>
+        <button onclick="abrirModal('https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8')">Ver</button>
+      </div>
+      <div class="canal">
+        <h3>Telefe</h3>
+        <button onclick="abrirModal('https://telefeviacom1.akamaized.net/hls/live/2037987/viacomINT/TOK/master.m3u8')">Ver</button>
+      </div>
+      <div class="canal">
+        <h3>El Trece</h3>
+        <button onclick="abrirModal('https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8')">Ver</button>
+      </div>
+      <div class="canal">
+        <h3>NET TV</h3>
+        <button onclick="abrirModal('https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8')">Ver</button>
+      </div>
+      <div class="canal">
+        <h3>Ciudad Magazine</h3>
+        <button onclick="abrirModal('https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8')">Ver</button>
+      </div>
+    </div>
+  </main>
 
   <!-- Modal -->
-  <div id="playerModal">
+  <div id="miModal" class="modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="modalTitle">Reproductor</h3>
-        <button class="close-btn" onclick="closeModal()">Cerrar</button>
-      </div>
-      <div class="modal-body" id="playerArea"></div>
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <video id="player" class="video-js vjs-default-skin" controls preload="auto"></video>
     </div>
   </div>
 
   <script>
-    const CHANNELS = [
-      {
-        name: "Canal 13",
-        desc: "Canal de entretenimiento en vivo",
-        thumb: "https://upload.wikimedia.org/wikipedia/commons/6/69/Canal_13_logo_2018.png",
-        stream: "https://stream.arcast.com.ar/canal3/canal3/playlist.m3u8"
-      },
-      {
-        name: "X Level Media",
-        desc: "Canal de música y entretenimiento",
-        thumb: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Music_film_icon.png",
-        stream: "https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8"
-      }
-    ];
+    var modal = document.getElementById("miModal");
+    var videoElement = document.getElementById("player");
+    var player = videojs(videoElement);
 
-    const grid = document.getElementById('entertainmentGrid');
-    const modal = document.getElementById('playerModal');
-    const playerArea = document.getElementById('playerArea');
-    const modalTitle = document.getElementById('modalTitle');
-
-    CHANNELS.forEach(c => {
-      const card = document.createElement('div');
-      card.className = "card";
-      card.innerHTML = `
-        <div class="thumb"><img src="${c.thumb}" alt="${c.name}"></div>
-        <div class="title">${c.name}</div>
-        <div class="desc">${c.desc}</div>
-        <button class="play-btn">Ver</button>
-      `;
-      card.querySelector(".play-btn").onclick = (e) => {
-        e.stopPropagation();
-        openChannel(c);
-      };
-      grid.appendChild(card);
-    });
-
-    function openChannel(c){
-      modal.style.display = "flex";
-      modalTitle.textContent = c.name;
-      playerArea.innerHTML = `
-        <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay preload="auto" width="100%" height="100%"></video>
-      `;
-      const video = document.getElementById('videoPlayer');
+    function abrirModal(url) {
+      modal.style.display = "block";
       if (Hls.isSupported()) {
         var hls = new Hls();
-        hls.loadSource(c.stream);
-        hls.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = c.stream;
+        hls.loadSource(url);
+        hls.attachMedia(videoElement);
+      } else {
+        videoElement.src = url;
       }
+      player.play();
     }
 
-    function closeModal(){
+    function cerrarModal() {
       modal.style.display = "none";
-      playerArea.innerHTML = "";
+      player.pause();
+      player.currentTime(0);
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        cerrarModal();
+      }
     }
   </script>
 </body>
