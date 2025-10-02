@@ -3,79 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canales de Terror - TV Latino HD</title>
+  <title>Terror - TV Latino HD</title>
+
+  <!-- Video.js -->
+  <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+  <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
+
   <style>
-    body{background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:20px;}
-    #terrorGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-    .card{background:#111827;padding:12px;border-radius:12px;cursor:pointer;transition:.2s;}
-    .card:hover{transform:scale(1.03);}
-    .thumb{height:120px;background:#222;border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;}
-    .title{font-weight:700;margin-bottom:4px;}
-    .desc{color:#9aa4ad;font-size:14px;}
-    .play-btn{margin-top:8px;padding:6px 12px;border-radius:8px;background:linear-gradient(90deg,#0ea5ff,#ff4c4c);border:none;color:#000;font-weight:bold;cursor:pointer;}
-    #playerModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:9999;}
-    .modal-content{background:#111827;padding:12px;border-radius:12px;max-width:900px;width:95%;box-shadow:0 0 20px #000;}
-    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-    .modal-header h3{margin:0;}
-    .modal-body{width:100%;height:480px;background:#000;position:relative;}
-    .close-btn{background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
-    .notice{background:linear-gradient(90deg,#ff4c4c,#0ea5ff);color:#fff;font-size:14px;padding:6px;text-align:center;border-radius:8px;margin-bottom:6px;font-weight:bold;}
+    body { background:#0b0f1c; color:#fff; font-family: sans-serif; text-align:center; margin:0; padding:20px; }
+    h1 { margin-bottom:20px; }
+    .player-container { max-width:800px; margin:0 auto; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Canales de Terror 🎃</h1>
-  <div id="terrorGrid"></div>
 
-  <!-- Modal -->
-  <div id="playerModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="modalTitle">Reproductor</h3>
-        <button class="close-btn" onclick="closeModal()">Cerrar</button>
-      </div>
-      <div class="modal-body" id="playerArea"></div>
-    </div>
+  <h1>🎃 Terror - TV Latino HD</h1>
+  <p>Canales de terror y películas gratis en vivo.</p>
+
+  <div class="player-container">
+    <video id="pluto-horror" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="480">
+      <source src="https://cfd-v4-service-channel-stitcher-use1-1.prd.pluto.tv/stitch/hls/channel/62fa81ccd1a7e90007c1ada0/master.m3u8" type="application/x-mpegURL">
+    </video>
   </div>
 
   <script>
-  const TERROR_CHANNELS = [
-    {
-      name:"Xtrema Terror",
-      desc:"Canal de Películas de Terror en vivo",
-      embed:`<iframe src="https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-    }
-  ];
-
-  const grid = document.getElementById('terrorGrid');
-  const modal = document.getElementById('playerModal');
-  const playerArea = document.getElementById('playerArea');
-  const modalTitle = document.getElementById('modalTitle');
-
-  TERROR_CHANNELS.forEach(c=>{
-    const card = document.createElement('div');
-    card.className = "card";
-    card.innerHTML = `
-      <div class="thumb">${c.name}</div>
-      <div class="title">${c.name}</div>
-      <div class="desc">${c.desc}</div>
-      <button class="play-btn">Ver</button>
-    `;
-    card.onclick = ()=>openChannel(c);
-    grid.appendChild(card);
-  });
-
-  function openChannel(c){
-    modal.style.display = "flex";
-    modalTitle.textContent = c.name;
-    playerArea.innerHTML = `
-      <div class="notice">⚠️ Puede abrirse una pestaña de publicidad. Cerrala y volvé al canal.</div>
-      ${c.embed}
-    `;
-  }
-  function closeModal(){
-    modal.style.display = "none";
-    playerArea.innerHTML = "";
-  }
+    var player = videojs('pluto-horror');
   </script>
+
 </body>
 </html>
