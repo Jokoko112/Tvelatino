@@ -6,213 +6,243 @@
   
   <title>Todo el Deporte Online - TV Latino HD</title>
   <meta name="description" content="Mira todo el deporte online en vivo, fútbol, NBA, tenis y mucho más gratis.">
-<meta name="keywords" content="fútbol en vivo, deportes online, TV gratis, streaming deportes, ver partidos online">
-<meta name="author" content="TveLatino">
-<style>
-body{background:#0b0f1c;color:#fff;font-family:sans-serif;margin:0;padding:20px;}
-#sportsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-.card{background:#111827;padding:12px;border-radius:12px;cursor:pointer;transition:.2s;}
-.card:hover{transform:scale(1.03);}
-.thumb{height:120px;background:#222;border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;}
-.title{font-weight:700;margin-bottom:4px;}
-.desc{color:#9aa4ad;font-size:14px;}
-.play-btn{margin-top:8px;padding:6px 12px;border-radius:8px;background:linear-gradient(90deg,#0ea5ff,#ff4c4c);border:none;color:#000;font-weight:bold;cursor:pointer;}
-#playerModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);align-items:center;justify-content:center;z-index:9999;}
-.modal-content{background:#111827;padding:12px;border-radius:12px;max-width:900px;width:95%;box-shadow:0 0 20px #000;}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.modal-header h3{margin:0;}
-.modal-body{width:100%;height:480px;background:#000;position:relative;}
-.close-btn{background:red;border:none;padding:6px 12px;border-radius:8px;color:#fff;font-weight:bold;cursor:pointer;}
-.notice{background:linear-gradient(90deg,#ff4c4c,#0ea5ff);color:#fff;font-size:14px;padding:6px;text-align:center;border-radius:8px;margin-bottom:6px;font-weight:bold;}
-</style>
-  /* Estilos del header y navegación */
-header nav a {
-  position: relative;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  padding-bottom: 4px;
-}
+  <meta name="keywords" content="fútbol en vivo, deportes online, TV gratis, streaming deportes, ver partidos online">
+  <meta name="author" content="TveLatino">
 
-header nav a:hover {
-  color: #0ea5ff;
-  text-shadow: 0px 0px 8px #0ea5ff;
-}
+  <style>
+    body {
+      background:#0b0f1c;
+      color:#fff;
+      font-family:sans-serif;
+      margin:0;
+      padding:0;
+    }
 
-header nav a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  left: 0;
-  bottom: 0;
-  background-color: #0ea5ff;
-  transition: width 0.3s ease;
-}
+    /* HEADER */
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 30px;
+      background:#111827;
+    }
 
-header nav a:hover::after {
-  width: 100%;
-}
+    header nav {
+      display:flex;
+      gap:20px;
+    }
+
+    header nav a {
+      position: relative;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding-bottom: 4px;
+    }
+
+    header nav a:hover {
+      color: #0ea5ff;
+      text-shadow: 0px 0px 8px #0ea5ff;
+    }
+
+    header nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: 0;
+      background-color: #0ea5ff;
+      transition: width 0.3s ease;
+    }
+
+    header nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Cards de canales */
+    #sportsGrid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+      padding:20px;
+    }
+    .card {
+      background:#111827;
+      padding:12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .card:hover { transform:scale(1.03); }
+    .thumb {
+      height:120px;
+      background:#222;
+      border-radius:8px;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .title { font-weight:700;margin-bottom:4px; }
+    .desc { color:#9aa4ad;font-size:14px; }
+    .play-btn {
+      margin-top:8px;
+      padding:6px 12px;
+      border-radius:8px;
+      background:linear-gradient(90deg,#0ea5ff,#ff4c4c);
+      border:none;
+      color:#000;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    /* Modal */
+    #playerModal {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.8);
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    }
+    .modal-content {
+      background:#111827;
+      padding:12px;
+      border-radius:12px;
+      max-width:900px;
+      width:95%;
+      box-shadow:0 0 20px #000;
+    }
+    .modal-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:8px;
+    }
+    .modal-body {
+      width:100%;
+      height:480px;
+      background:#000;
+      position:relative;
+    }
+    .close-btn {
+      background:red;
+      border:none;
+      padding:6px 12px;
+      border-radius:8px;
+      color:#fff;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .notice {
+      background:linear-gradient(90deg,#ff4c4c,#0ea5ff);
+      color:#fff;
+      font-size:14px;
+      padding:6px;
+      text-align:center;
+      border-radius:8px;
+      margin-bottom:6px;
+      font-weight:bold;
+    }
+
+    footer {
+      text-align:center;
+      margin-top:40px;
+      font-size:14px;
+      color:#aaa;
+      padding:20px;
+    }
+  </style>
 </head>
 <body>
+
   <!-- HEADER -->
-<header style="display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background:#111827;">
-  <!-- Logo -->
-  <div>
-    <img src="logotv.png" alt="TV Latino HD" width="160">
-  </div>
-
-  <!-- Navegación -->
-  <nav style="display:flex; gap:20px;">
-    <a href="index.html">Inicio</a>
-    <a href="Deportes.html">Deportes</a>
-    <a href="Aviso.html">Aviso Legal</a>
-    <a href="Dmca.html">DMCA</a>
-    <a href="Copyright.html">Copyright</a>
-  </nav>
-</header>
-  <div style="text-align:center; margin: 20px 0;">
-  <img src="logotv.png" alt="TV Latino HD" width="200">
-  </div>
-<h1 style="text-align:center;">Todo el Deporte Online - TV Latino HD</h1>
-<p style="text-align:center; max-width:700px; margin:0 auto 20px; color:#ccc;">
-Bienvenido a TV Latino HD, la mejor página para ver fútbol y deportes en vivo gratis. 
-Encontrá canales como ESPN, TyC Sports, TNT Sports y mucho más en un solo lugar.
-</p>
-<h2>Deportes</h2>
-<div id="sportsGrid"></div>
-
-<!-- Modal -->
-<div id="playerModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="modalTitle">Reproductor</h3>
-      <button class="close-btn" onclick="closeModal()">Cerrar</button>
+  <header>
+    <div>
+      <img src="logotv.png" alt="TV Latino HD" width="160">
     </div>
-    <div class="modal-body" id="playerArea"></div>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="Deportes.html">Deportes</a>
+      <a href="Aviso.html">Aviso Legal</a>
+      <a href="Dmca.html">DMCA</a>
+      <a href="Copyright.html">Copyright</a>
+    </nav>
+  </header>
+
+  <!-- Contenido -->
+  <h1 style="text-align:center;">Todo el Deporte Online - TV Latino HD</h1>
+  <p style="text-align:center; max-width:700px; margin:0 auto 20px; color:#ccc;">
+    Bienvenido a TV Latino HD, la mejor página para ver fútbol y deportes en vivo gratis. 
+    Encontrá canales como ESPN, TyC Sports, TNT Sports y mucho más en un solo lugar.
+  </p>
+
+  <h2 style="padding-left:20px;">Deportes</h2>
+  <div id="sportsGrid"></div>
+
+  <!-- Modal -->
+  <div id="playerModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Reproductor</h3>
+        <button class="close-btn" onclick="closeModal()">Cerrar</button>
+      </div>
+      <div class="modal-body" id="playerArea"></div>
+    </div>
   </div>
-</div>
 
-<script>
-const CHANNELS = [
-  {
-    name:"GolPerú",
-    desc:"Partidos en vivo",
-    embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "TNT Sports",
-    desc: "Partidos en vivo y eventos deportivos",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-  name: "ESPN Argentina",
-  desc: "Deportes en vivo",
-  embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espncol.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-},
-  {
-    name: "TyC Sports",
-    desc: "Fútbol argentino y más",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-    {
-    name: "ESPN 2",
-    desc: "Deportes internacionales",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN 3",
-    desc: "Deportes y eventos especiales",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn3.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "ESPN 4",
-    desc: "Cobertura deportiva completa",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/espn4.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "Dsport 2",
-    desc: "Eventos deportivos en vivo",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsports2.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  },
-  {
-    name: "Dsport Plus",
-    desc: "Deportes y transmisiones exclusivas",
-    embed: `<iframe src="https://embed.ksdjugfsddeports.com/embed2/directvsportsplus.html" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-  }
-];
+  <!-- Scripts -->
+  <script>
+    const CHANNELS = [
+      { name:"GolPerú", desc:"Partidos en vivo", embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/golperu.html" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>` },
+      { name:"TNT Sports", desc:"Partidos en vivo", embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/tntsports.html" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>` },
+      { name:"ESPN Argentina", desc:"Deportes en vivo", embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/espncol.html" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>` },
+      { name:"TyC Sports", desc:"Fútbol argentino", embed:`<iframe src="https://embed.ksdjugfsddeports.com/embed2/tycsports.html" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>` }
+    ];
 
-const grid = document.getElementById('sportsGrid');
-const modal = document.getElementById('playerModal');
-const playerArea = document.getElementById('playerArea');
-const modalTitle = document.getElementById('modalTitle');
+    const grid = document.getElementById('sportsGrid');
+    const modal = document.getElementById('playerModal');
+    const playerArea = document.getElementById('playerArea');
+    const modalTitle = document.getElementById('modalTitle');
 
-CHANNELS.forEach(c=>{
-  const card = document.createElement('div');
-  card.className = "card";
-  card.innerHTML = `
-    <div class="thumb">${c.name}</div>
-    <div class="title">${c.name}</div>
-    <div class="desc">${c.desc}</div>
-    <button class="play-btn">Ver</button>
-  `;
-  card.onclick = ()=>openChannel(c);
-  grid.appendChild(card);
-});
+    CHANNELS.forEach(c=>{
+      const card = document.createElement('div');
+      card.className = "card";
+      card.innerHTML = `
+        <div class="thumb">${c.name}</div>
+        <div class="title">${c.name}</div>
+        <div class="desc">${c.desc}</div>
+        <button class="play-btn">Ver</button>
+      `;
+      card.onclick = ()=>openChannel(c);
+      grid.appendChild(card);
+    });
 
-function openChannel(c){
-  modal.style.display = "flex";
-  modalTitle.textContent = c.name;
-  playerArea.innerHTML = `
-    <div class="notice">⚠️ Al hacer click en Play puede abrirse una pestaña de publicidad. Cerrala y volvé al canal. ¡Gracias por apoyar la página!</div>
-    ${c.embed}
-  `;
-}
-function closeModal(){
-  modal.style.display = "none";
-  playerArea.innerHTML = "";
-}
-</script>
+    function openChannel(c){
+      modal.style.display = "flex";
+      modalTitle.textContent = c.name;
+      playerArea.innerHTML = `
+        <div class="notice">⚠️ Puede abrirse una pestaña de publicidad. Cerrala y volvé al canal.</div>
+        ${c.embed}
+      `;
+    }
+    function closeModal(){
+      modal.style.display = "none";
+      playerArea.innerHTML = "";
+    }
+  </script>
 
-  <section style="text-align:center; margin: 50px 0; font-family: Arial, sans-serif;">
-  <h2 style="font-size: 24px; margin-bottom: 10px;">💙 Apoyá el proyecto</h2>
-  <p style="font-size: 16px; color: #444; margin-bottom: 20px;">
-    Si te gusta lo que hago y querés ayudarme a seguir mejorando, podés invitarme un cafecito con PayPal.
-  </p>
-  <a href="https://paypal.me/tvelathd" target="_blank">
-    <button style="
-      padding: 14px 28px; 
-      background-color: #0070ba; 
-      color: white; 
-      font-size: 18px; 
-      font-weight: bold; 
-      border: none; 
-      border-radius: 8px; 
-      cursor: pointer;
-      transition: background 0.3s;">
-      💳 Donar con PayPal
-    </button>
-  </a>
-  </section>
-
-<section style="text-align:center; margin: 50px 0; font-family: Arial, sans-serif;">
-  <h2 style="font-size: 24px; margin-bottom: 10px;">🏦 Donación por Transferencia Bancaria</h2>
-  <p style="font-size: 16px; color: #ccc; margin-bottom: 20px;">
-    SI SOS DE ARGENTINA, PODES APOYARME CON UNA TRANFERENCIA A ESTE ALIAS: <b style="color:#ff4c4c;">TVELATHD25</b>
-  </p>
-  <div style="display:flex; justify-content:center; align-items:center; gap:10px;">
-         🏦
-    <span style="font-size:18px; font-weight:bold; color:#ff4c4c;">TVELATHD25</span>
-  </div>
-</section>
-  <footer style="text-align:center; margin-top:40px; font-size:14px; color:#aaa;">
-  <p>
-    <a href="Aviso.html" style="color:#0ea5ff;">Aviso Legal</a> | 
-    <a href="Dmca.html" style="color:#0ea5ff;">DMCA</a> | 
-    <a href="Copyright.html" style="color:#0ea5ff;">Copyright</a>
-  </p>
-  <p>© 2025 TV Latino HD - Todos los derechos reservados.</p>
+  <!-- Footer -->
+  <footer>
+    <p>
+      <a href="Aviso.html" style="color:#0ea5ff;">Aviso Legal</a> | 
+      <a href="Dmca.html" style="color:#0ea5ff;">DMCA</a> | 
+      <a href="Copyright.html" style="color:#0ea5ff;">Copyright</a>
+    </p>
+    <p>© 2025 TV Latino HD - Todos los derechos reservados.</p>
   </footer>
 </body>
 </html>
