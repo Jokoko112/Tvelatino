@@ -1,110 +1,165 @@
-<link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
-<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
-<script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
-
-<style>
-  body {background:#0b0b0f; color:#fff; font-family:sans-serif; margin:0; padding:20px;}
-  h1 {text-align:center; margin-bottom:20px;}
-  #grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-    gap:15px;
-    justify-content:center;
-  }
-  .card {
-    background:#111827;
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:transform .2s;
-  }
-  .card:hover { transform:scale(1.05); }
-  .thumb img {
-    width:100%;
-    height:100px;
-    object-fit:cover;
-    display:block;
-  }
-  .info { padding:10px; }
-  .title { font-weight:700; margin-bottom:5px; font-size:14px; }
-  .desc { font-size:12px; color:#aaa; }
-  
-  /* Modal */
-  #playerModal {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.8); justify-content:center; align-items:center;
-    z-index:1000; padding:10px;
-  }
-  .modal-content {
-    background:#000; border-radius:10px; padding:15px; width:90%; max-width:800px;
-  }
-  .close-btn {
-    background:red; color:#fff; border:none; padding:6px 12px; border-radius:6px;
-    font-weight:bold; cursor:pointer;
-  }
-</style>
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terror Online - TV Latino HD</title>
+  <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+  <style>
+    body {
+      background:#0b0b0f;
+      color:#fff;
+      font-family:sans-serif;
+      margin:0;
+      padding:20px;
+    }
+    h1 {
+      text-align:center;
+      margin-bottom:20px;
+    }
+    #terrorGrid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:16px;
+    }
+    .card {
+      background:#111827;
+      padding:12px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.2s;
+      text-align:center;
+    }
+    .card:hover {
+      transform:scale(1.05);
+    }
+    .thumb img {
+      width:100%;
+      height:120px;
+      object-fit:contain;
+      margin-bottom:10px;
+    }
+    .title {
+      font-weight:bold;
+      margin-bottom:4px;
+    }
+    .desc {
+      font-size:13px;
+      color:#aaa;
+    }
+    /* Modal */
+    #playerModal {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background:rgba(0,0,0,0.9);
+      justify-content:center;
+      align-items:center;
+      z-index:999;
+      flex-direction:column;
+      padding:20px;
+    }
+    .modal-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      width:100%;
+      max-width:900px;
+      margin-bottom:10px;
+    }
+    .modal-header h3 {
+      margin:0;
+    }
+    .close-btn {
+      background:red;
+      color:white;
+      border:none;
+      padding:6px 12px;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      width:100%;
+      max-width:900px;
+    }
+    .video-container video {
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+  </style>
+</head>
 <body>
   <h1>🎃 Canales Terror</h1>
-  <div id="grid"></div>
+  <p style="text-align:center;color:#ccc;">Bienvenido a la sección de Terror. Aquí podés ver canales y transmisiones de cine y contenido de terror.</p>
+
+  <div id="terrorGrid"></div>
 
   <!-- Modal -->
   <div id="playerModal">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <h3 id="modalTitle">Reproductor</h3>
-        <button class="close-btn" onclick="closeModal()">Cerrar</button>
-      </div>
-      <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="480">
+    <div class="modal-header">
+      <h3 id="modalTitle"></h3>
+      <button class="close-btn" onclick="closeModal()">Cerrar</button>
+    </div>
+    <div class="video-container">
+      <video id="my-video" class="video-js vjs-default-skin" controls preload="auto">
         <source src="" type="application/x-mpegURL">
       </video>
     </div>
   </div>
-</body>
 
 <script>
-const CHANNELS = [
-  {
-    name:"VerTV (VTV)",
-    desc:"Canal argentino [720p]",
-    src:"https://5f700d5b2c46f.streamlock.net/vertv/vertv/playlist.m3u8",
-    thumb:"https://i.imgur.com/w7zM9nU.png" // miniatura
-  },
-  {
-    name:"X Level Media",
-    desc:"Transmisión en vivo [1080p]",
-    src:"https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8",
-    thumb:"https://i.imgur.com/BP4V0fQ.png"
-  }
-];
+  const CHANNELS = [
+    {
+      name:"VerTV (VTV)",
+      desc:"Canal argentino - [720p]",
+      thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
+      stream:"https://5f700d5b2c46f.streamlock.net/vertv/vertv/playlist.m3u8"
+    },
+    {
+      name:"X Level Media",
+      desc:"Transmisión en vivo [1080p]",
+      thumb:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Television_icon.svg/512px-Television_icon.svg.png",
+      stream:"https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8"
+    }
+  ];
 
-const grid = document.getElementById('grid');
-const modal = document.getElementById('playerModal');
-const modalTitle = document.getElementById('modalTitle');
-let player = videojs('my-video'); 
+  const grid = document.getElementById('terrorGrid');
+  const modal = document.getElementById('playerModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const player = videojs('my-video');
 
-CHANNELS.forEach(c=>{
-  const card = document.createElement('div');
-  card.className = "card";
-  card.innerHTML = `
-    <div class="thumb"><img src="${c.thumb}" alt="${c.name}"></div>
-    <div class="info">
+  CHANNELS.forEach(c => {
+    const card = document.createElement('div');
+    card.className = "card";
+    card.innerHTML = `
+      <div class="thumb"><img src="${c.thumb}" alt="${c.name}"></div>
       <div class="title">${c.name}</div>
       <div class="desc">${c.desc}</div>
-    </div>
-  `;
-  card.onclick = ()=>openChannel(c);
-  grid.appendChild(card);
-});
+    `;
+    card.onclick = () => openModal(c);
+    grid.appendChild(card);
+  });
 
-function openChannel(c){
-  modal.style.display = "flex";
-  modalTitle.textContent = c.name;
-  player.src({ src: c.src, type: "application/x-mpegURL" });
-  player.play();
-}
-function closeModal(){
-  modal.style.display = "none";
-  player.pause();
-}
+  function openModal(channel) {
+    modal.style.display = "flex";
+    modalTitle.textContent = channel.name;
+    player.src({ src: channel.stream, type: "application/x-mpegURL" });
+    player.play();
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+    player.pause();
+    player.currentTime(0);
+  }
 </script>
+</body>
+</html>
