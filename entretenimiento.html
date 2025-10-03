@@ -61,13 +61,53 @@
     .canal button:hover {
       background: #009acc;
     }
-    iframe {
-      width: 100%;
-      height: 250px;
-      border: none;
-      border-radius: 10px;
+    /* Modal */
+    .modal {
       display: none;
-      margin-top: 10px;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-contenido {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 95%;
+      position: relative;
+      text-align: center;
+    }
+    .modal iframe {
+      width: 100%;
+      height: 450px;
+      border-radius: 10px;
+    }
+    .cerrar {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      background: red;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+    }
+    .aviso {
+      background: #ffcc00;
+      color: #000;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: bold;
     }
     footer {
       background: #1e1e1e;
@@ -104,50 +144,47 @@
   <main>
     <div class="contenedor">
 
-      <!-- Canal 1 -->
       <div class="canal">
         <h3>Canal 13 Jujuy</h3>
-        <button onclick="verCanal('canal1')">Ver</button>
-        <iframe id="canal1" src="https://genexservicios.com:19360/canal13jujuy/canal13jujuy.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://genexservicios.com:19360/canal13jujuy/canal13jujuy.m3u8')">Ver</button>
       </div>
 
-      <!-- Canal 2 -->
       <div class="canal">
         <h3>Canal 26</h3>
-        <button onclick="verCanal('canal2')">Ver</button>
-        <iframe id="canal2" src="https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8')">Ver</button>
       </div>
 
-      <!-- Canal 3 -->
       <div class="canal">
         <h3>Ciudad Magazine</h3>
-        <button onclick="verCanal('canal3')">Ver</button>
-        <iframe id="canal3" src="https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8')">Ver</button>
       </div>
 
-      <!-- Canal 4 -->
       <div class="canal">
         <h3>NET TV</h3>
-        <button onclick="verCanal('canal4')">Ver</button>
-        <iframe id="canal4" src="https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8')">Ver</button>
       </div>
 
-      <!-- Canal 5 -->
       <div class="canal">
         <h3>Telefe</h3>
-        <button onclick="verCanal('canal5')">Ver</button>
-        <iframe id="canal5" src="https://telefeviacom1.akamaized.net/hls/live/2037987/viacomINT/TOK/master.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://telefeviacom1.akamaized.net/hls/live/2037987/viacomINT/TOK/master.m3u8')">Ver</button>
       </div>
 
-      <!-- Canal 6 -->
       <div class="canal">
         <h3>El Trece</h3>
-        <button onclick="verCanal('canal6')">Ver</button>
-        <iframe id="canal6" src="https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8" allowfullscreen></iframe>
+        <button onclick="abrirModal('https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8')">Ver</button>
       </div>
 
     </div>
   </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-contenido">
+      <button class="cerrar" onclick="cerrarModal()">X</button>
+      <div class="aviso">⚠️ Si se abre un anuncio al reproducir, cerralo y volvé a la página.</div>
+      <iframe id="iframeCanal" src="" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <footer>
     <p>Si te gusta la página, apoyanos con una donación:</p>
@@ -157,9 +194,13 @@
   </footer>
 
   <script>
-    function verCanal(id) {
-      let iframe = document.getElementById(id);
-      iframe.style.display = iframe.style.display === "block" ? "none" : "block";
+    function abrirModal(url) {
+      document.getElementById('iframeCanal').src = url;
+      document.getElementById('modal').style.display = 'flex';
+    }
+    function cerrarModal() {
+      document.getElementById('iframeCanal').src = "";
+      document.getElementById('modal').style.display = 'none';
     }
   </script>
 </body>
