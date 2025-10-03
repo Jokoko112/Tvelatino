@@ -9,33 +9,7 @@
   <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
-    .canales {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .canal {
-      background: #111;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    .canal button {
-      margin-top: 10px;
-      padding: 8px 15px;
-      background: #e50914;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .canal button:hover {
-      background: #b20710;
-    }
-    /* Modal */
+    /* Solo estilos necesarios para el modal */
     .modal {
       display: none;
       position: fixed;
@@ -81,7 +55,7 @@
   </header>
 
   <main>
-    <h1 style="text-align:center; color:white;">Canales de Entretenimiento</h1>
+    <h1 class="titulo-pagina">Canales de Entretenimiento</h1>
     <div class="canales">
       <div class="canal">
         <h3>Canal 13 Jujuy</h3>
