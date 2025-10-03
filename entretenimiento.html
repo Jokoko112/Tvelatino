@@ -3,153 +3,197 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entretenimiento - Tvelatino</title>
+  <title>Entretenimiento - TV Latino</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
       margin: 0;
       padding: 0;
-      text-align: center;
+      background: #111;
+      color: #fff;
     }
     header {
       background: #222;
       padding: 15px;
+      text-align: center;
     }
-    header a {
+    header img {
+      height: 50px;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
       color: #fff;
       margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
     }
-    h1 {
-      margin: 20px 0;
-    }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
       padding: 20px;
     }
-    .canal {
-      background: #222;
-      padding: 15px;
+    .card {
+      background: #1e1e1e;
       border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
       cursor: pointer;
-      transition: 0.3s;
+      transition: transform 0.2s;
     }
-    .canal:hover {
-      background: #444;
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      background: #000;
+    }
+    .card h3 {
+      padding: 10px;
+      font-size: 16px;
     }
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
     }
     .modal-content {
       background: #000;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 90%;
-      width: 720px;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 900px;
+      width: 95%;
+      height: 70%;
     }
-    iframe {
+    .modal iframe {
       width: 100%;
-      height: 400px;
+      height: 100%;
       border: none;
     }
     .close {
       color: #fff;
-      font-size: 22px;
-      float: right;
+      font-size: 30px;
+      font-weight: bold;
+      position: absolute;
+      top: 20px;
+      right: 30px;
       cursor: pointer;
     }
-    .donacion {
-      margin: 30px 0;
-      padding: 15px;
+    footer {
+      text-align: center;
       background: #222;
-      border-radius: 10px;
-    }
-    .donacion a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: #28a745;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    .donacion a.paypal {
-      background: #0070ba;
-    }
-    .aviso {
-      background: #ff9800;
-      color: #000;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
       font-size: 14px;
+    }
+    .donaciones {
+      margin: 15px 0;
+    }
+    .donaciones a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      background: #0070ba;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <a href="index.html">🏠 Inicio</a>
-    <a href="entretenimiento.html">🎬 Entretenimiento</a>
+    <img src="https://i.imgur.com/vxvZ4gT.png" alt="Logo TV Latino">
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="entretenimiento.html">Entretenimiento</a>
+      <a href="terror.html">Terror</a>
+      <a href="dmca.html">DMCA</a>
+      <a href="copyright.html">Copyright</a>
+    </nav>
   </header>
 
-  <h1>📺 Canales de Entretenimiento</h1>
-
-  <div class="aviso">
-    ⚠️ Al reproducir un canal puede abrirse un anuncio.  
-    Si pasa, ciérralo y vuelve a la página para mirar tranquilo.
-  </div>
-
   <div class="grid">
-    <div class="canal" onclick="abrirCanal('https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8')">Ciudad Magazine</div>
-    <div class="canal" onclick="abrirCanal('https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8')">Canal 26</div>
-    <div class="canal" onclick="abrirCanal('https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8')">NET TV</div>
-    <div class="canal" onclick="abrirCanal('https://magicstream.ddns.net/magicstream/stream.m3u8')">Magic Kids</div>
-    <div class="canal" onclick="abrirCanal('https://stream1.sersat.com/hls/garagetv.m3u8')">Garage TV</div>
-    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineaccion/cineaccion/playlist.m3u8')">Xtrema Acción</div>
-    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineclasico/cineclasico/playlist.m3u8')">Xtrema Cine Clásico</div>
-    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8')">Xtrema Terror</div>
-    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/xtremacartoons/xtremacartoons/playlist.m3u8')">Xtrema Cartoons</div>
-    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/xtremaanimal/xtremaanimal/playlist.m3u8')">Xtrema Animal</div>
-  </div>
-
-  <div class="donacion">
-    <p>🙏 Si te gusta el proyecto puedes apoyar con una donación:</p>
-    <a href="#" onclick="alert('Alias de Mercado Pago: tvelathd25')">💳 Alias MP: tvelathd25</a>
-    <a href="https://paypal.me/tvelathd" target="_blank" class="paypal">💲 Donar con PayPal</a>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <iframe id="iframeCanal" allowfullscreen></iframe>
+    <div class="card" onclick="openModal('https://stmv6.voxtvhd.com.br/cineaccion/cineaccion/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/TyC_Sports_logo.svg" alt="Canal">
+      <h3>Cine Acción</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stmv6.voxtvhd.com.br/xtremaanimal/xtremaanimal/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/ESPN_logos.png" alt="Canal">
+      <h3>Xtrema Animal</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stmv6.voxtvhd.com.br/xtremacartoons/xtremacartoons/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/ESPN3_Logo.png" alt="Canal">
+      <h3>Xtrema Cartoons</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stmv6.voxtvhd.com.br/cineclasico/cineclasico/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/ESPN_4_logo.svg" alt="Canal">
+      <h3>Cine Clásico</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stream1.sersat.com/hls/argentinisima.m3u8')">
+      <img src="https://static.wikia.nocookie.net/logopedia/images/c/cb/Gol_Per%C3%BA_2016.svg" alt="Canal">
+      <h3>Argentinísima</h3>
+    </div>
+    <div class="card" onclick="openModal('https://streaming01.mikrolive.tv/bayrestv/live/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/TNT_Sports_logo_2021.png" alt="Canal">
+      <h3>Bayres TV</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stream.arcast.com.ar/c3lapampa/ngrp:c3lapampa_all/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/ESPN_Premium_logo.svg" alt="Canal">
+      <h3>Canal 3 La Pampa</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stream.arcast.com.ar/canal3/canal3/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/ESPN2_logo.svg" alt="Canal">
+      <h3>Canal 3 Las Heras</h3>
+    </div>
+    <div class="card" onclick="openModal('https://stream.arcast.com.ar/canal5picotruncado/canal5picotruncado/playlist.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/DSports2.png" alt="Canal">
+      <h3>Canal 5 Pico Truncado</h3>
+    </div>
+    <div class="card" onclick="openModal('https://magicstream.ddns.net/magicstream/stream.m3u8')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/DSports.png" alt="Canal">
+      <h3>Magic Kids</h3>
     </div>
   </div>
 
+  <!-- Modal -->
+  <div id="playerModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <iframe id="playerFrame" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>⚠️ Al reproducir un canal puede que se abra publicidad. Si ocurre, cierre la ventana emergente y regrese aquí.</p>
+    <div class="donaciones">
+      <a href="https://paypal.me/tvelathd" target="_blank">💙 Donar con PayPal</a>
+      <p>Alias Transferencia: <strong>tvelathd25</strong></p>
+    </div>
+    <p>&copy; 2025 TV Latino - Todos los derechos reservados.</p>
+  </footer>
+
   <script>
-    function abrirCanal(url) {
-      document.getElementById("iframeCanal").src = "https://playerjs.org/player.html?file=" + url;
-      document.getElementById("modal").style.display = "flex";
+    function openModal(url) {
+      document.getElementById("playerModal").style.display = "flex";
+      document.getElementById("playerFrame").src = "https://playerjs.org/?file=" + encodeURIComponent(url);
     }
-    function cerrarModal() {
-      document.getElementById("iframeCanal").src = "";
-      document.getElementById("modal").style.display = "none";
+    function closeModal() {
+      document.getElementById("playerModal").style.display = "none";
+      document.getElementById("playerFrame").src = "";
     }
   </script>
-
 </body>
 </html>
