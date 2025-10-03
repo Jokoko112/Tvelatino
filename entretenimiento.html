@@ -3,205 +3,178 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TV Latino - Entretenimiento</title>
+  <title>TV Latino HD - Entretenimiento</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #121212;
-      color: #f5f5f5;
+      margin: 0; padding: 0;
+      background: #111; color: #fff;
+      text-align: center;
     }
     header {
-      background: #1e1e1e;
-      padding: 15px;
-      text-align: center;
+      background: #222;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    header h1 {
-      margin: 0;
-      color: #00c3ff;
-    }
-    nav {
-      margin-top: 10px;
+    header img {
+      height: 50px;
     }
     nav a {
-      margin: 0 15px;
-      text-decoration: none;
       color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
       font-weight: bold;
     }
-    nav a:hover {
-      color: #00c3ff;
-    }
-    .contenedor {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
       padding: 20px;
     }
-    .canal {
+    .card {
       background: #1e1e1e;
-      border-radius: 12px;
       padding: 10px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
-    .canal h3 {
-      margin: 10px 0;
+    .card img {
+      max-width: 100%;
+      height: 120px;
+      object-fit: contain;
     }
-    .canal button {
-      background: #00c3ff;
+    .card button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #e50914;
       border: none;
-      padding: 10px;
-      border-radius: 6px;
-      color: white;
+      color: #fff;
       cursor: pointer;
-      width: 100%;
+      border-radius: 5px;
     }
-    .canal button:hover {
-      background: #009acc;
+    .card button:hover {
+      background: #b0060f;
     }
     /* Modal */
     .modal {
       display: none;
       position: fixed;
       z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
     }
-    .modal-contenido {
-      background: #1e1e1e;
-      padding: 15px;
-      border-radius: 12px;
+    .modal-content {
+      background: #000;
+      padding: 10px;
+      border-radius: 8px;
+      width: 90%;
       max-width: 800px;
-      width: 95%;
       position: relative;
-      text-align: center;
     }
-    .modal iframe {
-      width: 100%;
-      height: 450px;
-      border-radius: 10px;
+    .modal-content iframe {
+      width: 100%; height: 450px;
     }
-    .cerrar {
+    .close {
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 20px;
-      color: white;
+      top: 5px; right: 10px;
+      font-size: 24px;
+      color: #fff;
       cursor: pointer;
-      background: red;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 50%;
     }
     .aviso {
-      background: #ffcc00;
-      color: #000;
-      padding: 8px;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      background: #222;
+      color: #ffcc00;
       font-size: 14px;
-      font-weight: bold;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 10px;
     }
     footer {
-      background: #1e1e1e;
+      background: #111;
       padding: 20px;
-      text-align: center;
-      margin-top: 30px;
+      margin-top: 20px;
+      font-size: 14px;
     }
-    footer p {
-      margin: 10px 0;
-    }
-    footer button {
-      background: #0070ba;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    footer button:hover {
-      background: #005b96;
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>TV Latino - Entretenimiento</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="entretenimiento.html">Entretenimiento</a>
-      <a href="deportes.html">Deportes</a>
-    </nav>
-  </header>
 
-  <main>
-    <div class="contenedor">
+<header>
+  <img src="logotv.png" alt="TV Latino HD">
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="entretenimiento.html">Entretenimiento</a>
+    <a href="terror.html">Terror</a>
+    <a href="dmca.html">DMCA</a>
+  </nav>
+</header>
 
-      <div class="canal">
-        <h3>Canal 13 Jujuy</h3>
-        <button onclick="abrirModal('https://genexservicios.com:19360/canal13jujuy/canal13jujuy.m3u8')">Ver</button>
-      </div>
+<h2>Canales de Entretenimiento</h2>
 
-      <div class="canal">
-        <h3>Canal 26</h3>
-        <button onclick="abrirModal('https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8')">Ver</button>
-      </div>
-
-      <div class="canal">
-        <h3>Ciudad Magazine</h3>
-        <button onclick="abrirModal('https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8')">Ver</button>
-      </div>
-
-      <div class="canal">
-        <h3>NET TV</h3>
-        <button onclick="abrirModal('https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8')">Ver</button>
-      </div>
-
-      <div class="canal">
-        <h3>Telefe</h3>
-        <button onclick="abrirModal('https://telefeviacom1.akamaized.net/hls/live/2037987/viacomINT/TOK/master.m3u8')">Ver</button>
-      </div>
-
-      <div class="canal">
-        <h3>El Trece</h3>
-        <button onclick="abrirModal('https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8')">Ver</button>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-contenido">
-      <button class="cerrar" onclick="cerrarModal()">X</button>
-      <div class="aviso">⚠️ Si se abre un anuncio al reproducir, cerralo y volvé a la página.</div>
-      <iframe id="iframeCanal" src="" allowfullscreen></iframe>
-    </div>
+<div class="grid">
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Telefe_logo_2021.svg" alt="Telefe">
+    <button onclick="openModal('https://stmv1.srvif.com/telefe/telefe/playlist.m3u8')">Ver</button>
   </div>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/America_TV_2019.svg" alt="América TV">
+    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/americatv/americatv/playlist.m3u8')">Ver</button>
+  </div>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/El_Trece_2018_logo.svg" alt="El Trece">
+    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/eltrece/eltrece/playlist.m3u8')">Ver</button>
+  </div>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Ciudad_Magazine_logo.svg" alt="Ciudad Magazine">
+    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/magazine/magazine/playlist.m3u8')">Ver</button>
+  </div>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Canal_9_logo.svg" alt="Canal 9">
+    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/canal9/canal9/playlist.m3u8')">Ver</button>
+  </div>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/C5N_logo.svg" alt="C5N">
+    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/c5n/c5n/playlist.m3u8')">Ver</button>
+  </div>
+</div>
 
-  <footer>
-    <p>Si te gusta la página, apoyanos con una donación:</p>
-    <a href="https://www.paypal.com/donate/?hosted_button_id=TU_ID_AQUI" target="_blank">
-      <button>💙 Donar con PayPal</button>
-    </a>
-  </footer>
+<!-- Modal -->
+<div id="playerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="aviso">ℹ️ Puede que se abra un anuncio al reproducir. Ciérrelo y vuelva a la página si es necesario.</div>
+    <iframe id="channelFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
 
-  <script>
-    function abrirModal(url) {
-      document.getElementById('iframeCanal').src = url;
-      document.getElementById('modal').style.display = 'flex';
-    }
-    function cerrarModal() {
-      document.getElementById('iframeCanal').src = "";
-      document.getElementById('modal').style.display = 'none';
-    }
-  </script>
+<footer>
+  <p>💖 Apoya el proyecto:</p>
+  <p>
+    <a href="https://www.paypal.com/donate" target="_blank"><i class="fa-brands fa-paypal"></i> Donar con PayPal</a>
+  </p>
+  <p>Alias transferencia bancaria: <strong>mi.alias.banco</strong></p>
+  <p>&copy; 2025 TV Latino HD - Todos los derechos reservados.</p>
+</footer>
+
+<script>
+function openModal(embedUrl) {
+  document.getElementById("playerModal").style.display = "flex";
+  document.getElementById("channelFrame").src = embedUrl;
+}
+function closeModal() {
+  document.getElementById("playerModal").style.display = "none";
+  document.getElementById("channelFrame").src = "";
+}
+</script>
+
 </body>
 </html>
