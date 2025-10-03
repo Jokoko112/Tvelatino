@@ -3,65 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TV Latino HD - Entretenimiento</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Entretenimiento - Tvelatino</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #111; color: #fff;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 0;
       text-align: center;
     }
     header {
       background: #222;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 15px;
     }
-    header img {
-      height: 50px;
-    }
-    nav a {
+    header a {
       color: #fff;
-      text-decoration: none;
       margin: 0 10px;
+      text-decoration: none;
       font-weight: bold;
+    }
+    h1 {
+      margin: 20px 0;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 15px;
       padding: 20px;
     }
-    .card {
-      background: #1e1e1e;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-    .card img {
-      max-width: 100%;
-      height: 120px;
-      object-fit: contain;
-    }
-    .card button {
-      margin-top: 10px;
-      padding: 8px 15px;
-      background: #e50914;
-      border: none;
-      color: #fff;
+    .canal {
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
       cursor: pointer;
-      border-radius: 5px;
+      transition: 0.3s;
     }
-    .card button:hover {
-      background: #b0060f;
+    .canal:hover {
+      background: #444;
     }
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
+      z-index: 999;
       left: 0; top: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.8);
@@ -70,111 +55,101 @@
     }
     .modal-content {
       background: #000;
-      padding: 10px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 800px;
-      position: relative;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 90%;
+      width: 720px;
     }
-    .modal-content iframe {
-      width: 100%; height: 450px;
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
     }
     .close {
-      position: absolute;
-      top: 5px; right: 10px;
-      font-size: 24px;
       color: #fff;
+      font-size: 22px;
+      float: right;
       cursor: pointer;
     }
-    .aviso {
+    .donacion {
+      margin: 30px 0;
+      padding: 15px;
       background: #222;
-      color: #ffcc00;
-      font-size: 14px;
-      padding: 8px;
-      border-radius: 5px;
-      margin-bottom: 10px;
+      border-radius: 10px;
     }
-    footer {
-      background: #111;
-      padding: 20px;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-    footer a {
-      color: #ffcc00;
+    .donacion a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
       text-decoration: none;
+      border-radius: 5px;
+    }
+    .donacion a.paypal {
+      background: #0070ba;
+    }
+    .aviso {
+      background: #ff9800;
+      color: #000;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="logotv.png" alt="TV Latino HD">
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="entretenimiento.html">Entretenimiento</a>
-    <a href="terror.html">Terror</a>
-    <a href="dmca.html">DMCA</a>
-  </nav>
-</header>
+  <header>
+    <a href="index.html">🏠 Inicio</a>
+    <a href="entretenimiento.html">🎬 Entretenimiento</a>
+  </header>
 
-<h2>Canales de Entretenimiento</h2>
+  <h1>📺 Canales de Entretenimiento</h1>
 
-<div class="grid">
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Telefe_logo_2021.svg" alt="Telefe">
-    <button onclick="openModal('https://stmv1.srvif.com/telefe/telefe/playlist.m3u8')">Ver</button>
+  <div class="aviso">
+    ⚠️ Al reproducir un canal puede abrirse un anuncio.  
+    Si pasa, ciérralo y vuelve a la página para mirar tranquilo.
   </div>
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/America_TV_2019.svg" alt="América TV">
-    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/americatv/americatv/playlist.m3u8')">Ver</button>
-  </div>
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/El_Trece_2018_logo.svg" alt="El Trece">
-    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/eltrece/eltrece/playlist.m3u8')">Ver</button>
-  </div>
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Ciudad_Magazine_logo.svg" alt="Ciudad Magazine">
-    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/magazine/magazine/playlist.m3u8')">Ver</button>
-  </div>
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Canal_9_logo.svg" alt="Canal 9">
-    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/canal9/canal9/playlist.m3u8')">Ver</button>
-  </div>
-  <div class="card">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/C5N_logo.svg" alt="C5N">
-    <button onclick="openModal('https://5f700d5b2c46f.streamlock.net/c5n/c5n/playlist.m3u8')">Ver</button>
-  </div>
-</div>
 
-<!-- Modal -->
-<div id="playerModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="aviso">ℹ️ Puede que se abra un anuncio al reproducir. Ciérrelo y vuelva a la página si es necesario.</div>
-    <iframe id="channelFrame" src="" frameborder="0" allowfullscreen></iframe>
+  <div class="grid">
+    <div class="canal" onclick="abrirCanal('https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8')">Ciudad Magazine</div>
+    <div class="canal" onclick="abrirCanal('https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8')">Canal 26</div>
+    <div class="canal" onclick="abrirCanal('https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8')">NET TV</div>
+    <div class="canal" onclick="abrirCanal('https://magicstream.ddns.net/magicstream/stream.m3u8')">Magic Kids</div>
+    <div class="canal" onclick="abrirCanal('https://stream1.sersat.com/hls/garagetv.m3u8')">Garage TV</div>
+    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineaccion/cineaccion/playlist.m3u8')">Xtrema Acción</div>
+    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineclasico/cineclasico/playlist.m3u8')">Xtrema Cine Clásico</div>
+    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8')">Xtrema Terror</div>
+    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/xtremacartoons/xtremacartoons/playlist.m3u8')">Xtrema Cartoons</div>
+    <div class="canal" onclick="abrirCanal('https://stmv6.voxtvhd.com.br/xtremaanimal/xtremaanimal/playlist.m3u8')">Xtrema Animal</div>
   </div>
-</div>
 
-<footer>
-  <p>💖 Apoya el proyecto:</p>
-  <p>
-    <a href="https://www.paypal.com/donate" target="_blank"><i class="fa-brands fa-paypal"></i> Donar con PayPal</a>
-  </p>
-  <p>ALIAS PARA TRANSFERENCIA BANCARIA: <strong>TVELATHD25</strong></p>
-  <p>&copy; 2025 TV Latino HD - Todos los derechos reservados.</p>
-</footer>
+  <div class="donacion">
+    <p>🙏 Si te gusta el proyecto puedes apoyar con una donación:</p>
+    <a href="#" onclick="alert('Alias de Mercado Pago: tvelathd25')">💳 Alias MP: tvelathd25</a>
+    <a href="https://paypal.me/tvelathd" target="_blank" class="paypal">💲 Donar con PayPal</a>
+  </div>
 
-<script>
-function openModal(embedUrl) {
-  document.getElementById("playerModal").style.display = "flex";
-  document.getElementById("channelFrame").src = embedUrl;
-}
-function closeModal() {
-  document.getElementById("playerModal").style.display = "none";
-  document.getElementById("channelFrame").src = "";
-}
-</script>
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <iframe id="iframeCanal" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    function abrirCanal(url) {
+      document.getElementById("iframeCanal").src = "https://playerjs.org/player.html?file=" + url;
+      document.getElementById("modal").style.display = "flex";
+    }
+    function cerrarModal() {
+      document.getElementById("iframeCanal").src = "";
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
