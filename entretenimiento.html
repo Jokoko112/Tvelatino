@@ -3,61 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entretenimiento - TV Latino HD</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>TV Latino - Entretenimiento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #121212;
+      color: #f5f5f5;
+    }
+    header {
+      background: #1e1e1e;
+      padding: 15px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      color: #00c3ff;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #00c3ff;
+    }
+    .contenedor {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .canal {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .canal h3 {
+      margin: 10px 0;
+    }
+    .canal button {
+      background: #00c3ff;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+    .canal button:hover {
+      background: #009acc;
+    }
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
+      border-radius: 10px;
+      display: none;
+      margin-top: 10px;
+    }
+    footer {
+      background: #1e1e1e;
+      padding: 20px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    footer p {
+      margin: 10px 0;
+    }
+    footer button {
+      background: #0070ba;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    footer button:hover {
+      background: #005b96;
+    }
+  </style>
 </head>
 <body>
-  <!-- Menú de navegación -->
   <header>
+    <h1>TV Latino - Entretenimiento</h1>
     <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="entretenimiento.html">Entretenimiento</a></li>
-        <li><a href="terror.html">Terror</a></li>
-        <li><a href="aviso.html">DMCA</a></li>
-        <li><a href="copyright.html">Copyright</a></li>
-        <li><a href="donaciones.html">Donar</a></li>
-      </ul>
+      <a href="index.html">Inicio</a>
+      <a href="entretenimiento.html">Entretenimiento</a>
+      <a href="deportes.html">Deportes</a>
     </nav>
   </header>
 
   <main>
-    <h1 style="text-align:center; margin:20px 0;">Canales de Entretenimiento</h1>
+    <div class="contenedor">
 
-    <!-- Cuadrícula de canales -->
-    <div class="channel-grid">
-      <!-- Canal 13 -->
-      <div class="channel-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/El_trece_logo_2018.png" alt="Canal 13">
-        <h3>Canal 13</h3>
-        <button onclick="openPlayer('https://stream.arcast.com.ar/canal3/canal3/playlist.m3u8')">Ver</button>
+      <!-- Canal 1 -->
+      <div class="canal">
+        <h3>Canal 13 Jujuy</h3>
+        <button onclick="verCanal('canal1')">Ver</button>
+        <iframe id="canal1" src="https://genexservicios.com:19360/canal13jujuy/canal13jujuy.m3u8" allowfullscreen></iframe>
       </div>
 
-      <!-- Xtrema Terror (ejemplo) -->
-      <div class="channel-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Horror_film_icon.png" alt="Xtrema Terror">
-        <h3>Xtrema Terror</h3>
-        <button onclick="openPlayer('https://stmv6.voxtvhd.com.br/cineterror/cineterror/playlist.m3u8')">Ver</button>
+      <!-- Canal 2 -->
+      <div class="canal">
+        <h3>Canal 26</h3>
+        <button onclick="verCanal('canal2')">Ver</button>
+        <iframe id="canal2" src="https://stream-gtlc.telecentro.net.ar/hls/canal26hls/0/playlist.m3u8" allowfullscreen></iframe>
       </div>
+
+      <!-- Canal 3 -->
+      <div class="canal">
+        <h3>Ciudad Magazine</h3>
+        <button onclick="verCanal('canal3')">Ver</button>
+        <iframe id="canal3" src="https://live-01-07-ciudad.vodgc.net/live-01-07-ciudad.vodgc.net/index.m3u8" allowfullscreen></iframe>
+      </div>
+
+      <!-- Canal 4 -->
+      <div class="canal">
+        <h3>NET TV</h3>
+        <button onclick="verCanal('canal4')">Ver</button>
+        <iframe id="canal4" src="https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8" allowfullscreen></iframe>
+      </div>
+
+      <!-- Canal 5 -->
+      <div class="canal">
+        <h3>Telefe</h3>
+        <button onclick="verCanal('canal5')">Ver</button>
+        <iframe id="canal5" src="https://telefeviacom1.akamaized.net/hls/live/2037987/viacomINT/TOK/master.m3u8" allowfullscreen></iframe>
+      </div>
+
+      <!-- Canal 6 -->
+      <div class="canal">
+        <h3>El Trece</h3>
+        <button onclick="verCanal('canal6')">Ver</button>
+        <iframe id="canal6" src="https://live-01-02-eltrece.vodgc.net/eltrecetv/index.m3u8" allowfullscreen></iframe>
+      </div>
+
     </div>
   </main>
 
-  <!-- Modal del reproductor -->
-  <div id="playerModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closePlayer()">&times;</span>
-      <iframe id="channelPlayer" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
+  <footer>
+    <p>Si te gusta la página, apoyanos con una donación:</p>
+    <a href="https://www.paypal.com/donate/?hosted_button_id=TU_ID_AQUI" target="_blank">
+      <button>💙 Donar con PayPal</button>
+    </a>
+  </footer>
 
   <script>
-    function openPlayer(url) {
-      document.getElementById("channelPlayer").src = url;
-      document.getElementById("playerModal").style.display = "block";
-    }
-    function closePlayer() {
-      document.getElementById("channelPlayer").src = "";
-      document.getElementById("playerModal").style.display = "none";
+    function verCanal(id) {
+      let iframe = document.getElementById(id);
+      iframe.style.display = iframe.style.display === "block" ? "none" : "block";
     }
   </script>
 </body>
