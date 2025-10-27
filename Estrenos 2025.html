@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Estrenos 2025 Full HD</title>
+
+  <!-- Video.js -->
+  <link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+  <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
+
+  <style>
+    :root{--bg:#0b0b0f;--card:#111827;--muted:#9aa4ad;--accent:#ff4c4c}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* NAV (simple) */
+    nav{background:rgba(0,0,0,0.15); padding:10px; text-align:center;}
+    nav a{color:#fff; margin:0 12px; text-decoration:none; font-weight:600; font-size:14px;}
+
+    .wrap{max-width:1100px; margin:18px auto; padding:0 14px;}
+
+    h1{margin:16px 0 6px; text-align:center; font-size:22px}
+    p.lead{color:var(--muted); text-align:center; margin:0 0 18px}
+
+    /* Grid */
+    #terrorGrid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:10px;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s;
+      box-shadow:0 2px 8px rgba(0,0,0,.4);
+    }
+    .card:hover{ transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.6); }
+    .thumb{height:110px; background:#000; display:flex; align-items:center; justify-content:center;}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+    .info{padding:10px;text-align:left}
+    .title{font-weight:700; font-size:15px; margin-bottom:6px}
+    .desc{font-size:13px; color:var(--muted)}
+
+    /* Modal */
+    #playerModal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.85);
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      padding:20px;
+      gap:12px;
+    }
+    .modal-wrap{
+      width:100%;
+      max-width:940px;
+      background:#000;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.8);
+      position:relative;
+      max-height:90vh;
+      display:flex;
+      flex-direction:column;
+    }
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 14px;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .modal-head h3{margin:0; font-size:18px}
+    .modal-close{
+      background:var(--accent);
+      border:0;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    /* Responsive video container (16:9) */
+    .video-container{ position:relative; padding-bottom:56.25%; height:0; width:100%; }
+    .video-container .video-js{ position:absolute; top:0; left:0; width:100%; height:100%; }
+
+    /* lock scroll when modal open */
+    body.modal-open{ overflow:hidden; }
+
+    /* small screens adjustments */
+    @media (max-width:420px){
+      .thumb{height:90px}
+      .modal-head h3{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">🏠 Inicio</a>
+    <a href="dmca.html">📜 DMCA</a>
+    <a href="copyright.html">© Copyright</a>
+    <a href="aviso.html">⚠ Aviso</a>
+  </nav>
+
+  <div class="wrap">
+    <h1>Esternos 2025</h1>
+    <p class="lead">Probá los canales, tocá la tarjeta y el reproductor se abre en un modal responsive.</p>
+
+    <div id="EstrenosGird"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="playerModal" role="dialog" aria-hidden="true">
+    <div class="modal-wrap" role="document">
+      <div class="modal-head">
+        <h3 id="modalTitle"></h3>
+        <button class="modal-close" id="closeBtn">Cerrar</button>
+      </div>
+
+      <div class="video-container">
+        <!-- video element (fluid) -->
+        <video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto">
+          <source src="" type="application/x-mpegURL">
+        </video>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // canales de ejemplo (pega aquí tus .m3u8)
+  const CHANNELS = [
+
+    
+  ];
+
+  const grid = document.getElementById('terrorGrid');
+  const modal = document.getElementById('playerModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const closeBtn = document.getElementById('closeBtn');
+
+  // crea las tarjetas
+  CHANNELS.forEach(ch => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="thumb"><img src="${ch.thumb}" alt="${ch.name}"></div>
+      <div class="info">
+        <div class="title">${ch.name}</div>
+        <div class="desc">${ch.desc}</div>
+      </div>
+    `;
+    card.addEventListener('click', () => openModal(ch));
+    grid.appendChild(card);
+  });
+
+  // inicializa player (videojs)
+  const player = videojs('my-video', {fluid: true});
+
+  function openModal(channel) {
+    modalTitle.textContent = channel.name;
+    // bloquear scroll de fondo
+    document.body.classList.add('modal-open');
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden','false');
+
+    // cargar stream
+    player.src({ src: channel.stream, type: 'application/x-mpegURL' });
+    // force fluid mode for mobile
+    player.fluid(true);
+    // play (si navegador lo permite)
+    player.ready(function(){
+      player.play().catch(()=>{ /* autoplay puede ser bloqueado */ });
+    });
+  }
+
+  function closeModal(){
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+    // pause y limpiar fuente
+    player.pause();
+    player.currentTime(0);
+    player.src({ src: '', type: '' });
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+
+  // cerrar modal si clickeás fuera de la caja
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // tecla ESC cierra modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+  });
+</script>
+</body>
+</html>
